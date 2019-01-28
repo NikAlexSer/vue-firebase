@@ -23,8 +23,8 @@ export default firebase.firestore()
 
 Vue.config.productionTip = false
 firebase.auth().onAuthStateChanged(() => {
-  store.commit('currentUser', firebase.auth().currentUser.email)
   if (!app) {
+    store.commit('currentUser', firebase.auth().currentUser.email)
     app = new Vue({
       router,
       store,
