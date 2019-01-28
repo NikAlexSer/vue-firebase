@@ -45,14 +45,14 @@
                 <div class="interests">
                     Интересы:
                     <div v-for="item in interests">
-                        <input type="checkbox" v-model="interestsNew" :value="item" :name="item" :checked="user.interests ? user.interests.indexOf(item) : false">
+                        <input type="checkbox" v-model="interestsNew" :value="item" :name="item" :checked="user.interests.indexOf(item) ? true : false">
                         <label :for="item">{{item}}</label>
                     </div>
                 </div>
                 <div class="wants">
                     Хотел бы изучить:
                     <div v-for="item in wants">
-                        <input type="checkbox" v-model="wantsNew" :value="item" :name="item" :checked="user.wanttolearn ? user.wanttolearn.indexOf(item) : false">
+                        <input type="checkbox" v-model="wantsNew" :value="item" :name="item" :checked="user.wanttolearn.indexOf(item) ? true : false">
                         <label :for="item">{{item}}</label>
                     </div>
                 </div>
@@ -118,6 +118,7 @@ export default {
   methods: {
       save() {
           console.log(this.user)
+          console.log(this.id)
           this.user.interests = this.interestsNew
           this.user.wanttolearn = this.wantsNew
           db.collection('users').doc(this.id).set(this.user)
