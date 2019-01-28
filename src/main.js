@@ -3,10 +3,32 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  render: function (h) { return h(App) }
-}).$mount('#app')
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+
+
+let app = ''
+
+firebase.initializeApp({
+  apiKey: "AIzaSyCpjYf4uzrz3yKzyheFfc3lZ2ZPHszOVac",
+  authDomain: "vue-lk.firebaseapp.com",
+  databaseURL: "https://vue-lk.firebaseio.com",
+  projectId: "vue-lk",
+  storageBucket: "vue-lk.appspot.com",
+  messagingSenderId: "1008368761938"
+})
+
+export default firebase.firestore()
+
+Vue.config.productionTip = false
+firebase.auth().onAuthStateChanged(() => {
+  store.commit('currentUser', firebase.auth().currentUser.email)
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      render: function (h) { return h(App) }
+    }).$mount('#app')
+  }
+})

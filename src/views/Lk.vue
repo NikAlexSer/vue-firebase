@@ -1,32 +1,37 @@
 <template>
   <div class="home">
     <div class="main">
-      <h1>Главная</h1>
-      <BtnPanel/>
-    </div>
-    <div class="news">
-      <h2>Новости</h2>
-      <button @click="logout">Выйти (в окно)</button>
+      <h1>Личный кабинет</h1>
+      <BtnPanelCabinet/>
     </div>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase'
-import BtnPanel from '@/components/BtnPanel.vue'
+import BtnPanelCabinet from '@/components/BtnPanelCabinet.vue'
+import db from '../main'
 
 export default {
-  name: 'Home',
+  name: 'Lk',
   components: {
-    BtnPanel
+    BtnPanelCabinet
   },
-  methods: {
-    logout: function() {
-      firebase.auth().signOut().then(() => {
-        this.$router.replace('login')
+  data() {
+    return {
+        users: []
+    };
+  },
+  created () {
+      db.collection('users').get().then((querySnapshot) => {
+        console.log('123213213')
+        querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+            console.log(doc.data().age)
+          this.users.push(doc.data().age)
+        })
       })
     }
-  }
 }
 </script>
 
