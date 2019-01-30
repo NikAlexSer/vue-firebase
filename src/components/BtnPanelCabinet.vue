@@ -1,7 +1,7 @@
 <template>
   <div class="btn-cont">
     <button @click="info">Инфо</button>
-    <button @click="lk">Чаты</button>
+    <button @click="chats">Чаты</button>
   </div>
 </template>
 
@@ -13,8 +13,8 @@ export default {
     info: function() {
         this.$router.replace('info')
     },
-    lk: function() {
-        this.$router.replace('cabinet')
+    chats: function() {
+        this.$router.replace('chats')
     }
   }
 }

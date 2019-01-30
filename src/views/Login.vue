@@ -25,6 +25,7 @@
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
                     (user) => {
                         store.commit('currentUser', this.email)
+                        localStorage.setItem('currentUser', this.email)
                         this.$router.replace('home')
                     },
                     (err) => {

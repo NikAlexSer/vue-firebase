@@ -1,8 +1,10 @@
 import firebase from 'firebase'
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
 
 import Home from './views/Home.vue'
+import Chats from './views/Chats.vue'
 import Search from './views/Search.vue'
 import Lk from './views/Lk.vue'
 import Info from './views/Info.vue'
@@ -40,6 +42,14 @@ const router = new Router({
       }
     },
     {
+      path: '/chats',
+      name: 'Chats',
+      component: Chats,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/search',
       name: 'Search',
       component: Search,
@@ -68,6 +78,12 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser;
+
+  if (localStorage.getItem('currentUser') && firebase.auth().currentUser) {
+    console.log('fewfew')
+    store.commit('currentUser', localStorage.getItem('currentUser'))
+  }
+  
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
 
   if (requiresAuth && !currentUser) next('login')

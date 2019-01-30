@@ -29,7 +29,7 @@
                  {{user.wanttolearn ? '' : '-'}}
             </ul></div>
         </div>
-        <button>Чат</button>
+        <button @click="chatWith(user.email)">Чат</button>
     </div>
   </div>
 </template>
@@ -62,6 +62,12 @@ export default {
         ],
         wantsNew: []
     };
+  },
+  methods: {
+      chatWith(email) {
+          store.commit('chatWith', email)
+          this.$router.replace('chats')
+      }
   },
   created () {
     db.collection('users').get().then((querySnapshot) => {

@@ -5,12 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentUser: ''
+    currentUser: '',
+    chatting: ''
   },
   mutations: {
     currentUser(state, data) {
       console.log('lol', data)
       state.currentUser = data
+    },
+    chatWith(state, data) {
+      state.chatting = data
     }
   },
   actions: {

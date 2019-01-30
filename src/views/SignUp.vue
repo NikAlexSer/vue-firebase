@@ -26,17 +26,14 @@
                 firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
                     (user) => {
                         store.commit('currentUser', this.email)
-                        db.collection('users').add({
+                        localStorage.setItem('currentUser', this.email)
+                        db.collection('users').doc(this.email).set({
                             email: this.email,
                             name: '',
                             age: 0,
                             phone: '',
                             interests: [],
                             wanttolearn: []
-                        }).then(docRef => {
-                            console.log('Document written with ID: ', docRef.id)
-                        }).catch(function (error) {
-                            console.error('Error adding document: ', error)
                         })
                         this.$router.replace('home')
                     },

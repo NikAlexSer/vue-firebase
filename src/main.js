@@ -5,7 +5,7 @@ import store from './store'
 
 
 import firebase from 'firebase/app'
-import 'firebase/firestore'
+require('firebase/firestore')
 
 
 let app = ''
@@ -18,6 +18,8 @@ firebase.initializeApp({
   storageBucket: "vue-lk.appspot.com",
   messagingSenderId: "1008368761938"
 })
+let db = firebase.firestore();
+window.db = db;
 
 export default firebase.firestore()
 
